@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Streaming~\cite{SchneierApplied2015}}
+\date{}
+\begin{document}
+	\maketitle
+
+	Participants:
+
+
+	$$
+	\gtRec{t}{
+	\gtComm{DP}{K}{
+		{{d}[bool]{
+				\gtComm{KP}{K}{
+					{{k}[bool]{
+							\gtComm{K}{C}{
+								{{c}[bool]{\gtVar{t}}}
+							}
+					}}
+				}
+		}}
+	}
+	}
+	$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

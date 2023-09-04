@@ -1,0 +1,29 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Adder~\cite{HuHybrid2016}}
+\date{}
+\begin{document}
+	\maketitle
+
+	$$
+	\gtRec{t}{
+		\gtComm{S}{C}{
+		{{Add}[\tuple{int, int}]{
+				\gtComm{C}{S}{{{Result}[int]{\gtVar{t}}}}
+			}}
+		{{Bye}{
+				\gtComm{C}{S}{{{Bye}[int]{\gtEnd}}}
+			}}
+		}
+	}
+	$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

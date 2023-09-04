@@ -1,0 +1,71 @@
+
+\ProvidesPackage{MPST}
+
+\RequirePackage{xcolor}
+\RequirePackage{amsmath}
+
+% From davidyat.es/2016/07/27/writing-a-latex-macro-that-takes-a-variable-number-of-arguments/
+\newcommand{\checknextarg}{\@ifnextchar\bgroup{\gobblenextarg}{\\}}
+\newcommand{\gobblenextarg}[1]{\\&\choice #1\@ifnextchar\bgroup{\gobblenextarg}{}}
+\newcommand{\choiceList}[1]{&\choice #1\checknextarg}
+
+\NewDocumentCommand{\choice}{m o m}
+	{\lbl{#1}\IfValueTF{#2}{(\payloadType{#2})}{}. #3}
+
+\NewDocumentCommand{\participant}{m}{{\color{blue} #1}}
+\NewDocumentCommand{\lbl}{m}{{\color{red} #1}}
+\NewDocumentCommand{\continuation}{m}{#1}
+\NewDocumentCommand{\var}{m}{{\color{red} \tt #1}}
+\NewDocumentCommand{\gtFmt}{m}{{\color{purple} #1}}
+\NewDocumentCommand{\proj}{m m}{\gtFmt{#1}\uparrow_{\participant{#2}}}
+\NewDocumentCommand{\roles}{m}{\operatorname{roles}(\gtFmt{#1})}
+\NewDocumentCommand{\ltSubst}{m m m}{\ltFmt{#1}\{^{\ltFmt{#3}}/_{\ltVar{#2}}\}}
+\NewDocumentCommand{\ltFv}{m}{\operatorname{fv}(\ltFmt{#1})}
+\NewDocumentCommand{\payloadType}{m}{{\color{orange}\tt #1}}
+
+\NewDocumentCommand{\commChoice}{o o m}{
+	\left\{\begin{aligned}
+			\choiceList #3
+	\end{aligned}\right\}_{
+		\IfValueTF{#2}{#1\in #2}{
+			\IfValueTF{#1}{#1}{}}
+	}
+}
+
+\NewDocumentCommand{\gtComm}{o o m m m}{
+	\gtFmt{\participant{#3}\rightarrow\participant{#4}\commChoice{#5}}
+}
+
+\NewDocumentCommand{\gtRec}{m m}{
+\gtFmt{\mu \var{#1}. #2}
+}
+\NewDocumentCommand{\gtVar}{m}{
+\var{#1}
+}
+
+\NewDocumentCommand{\gtEnd}{}{{\gtFmt{\tt end}}}
+
+
+\NewDocumentCommand{\ltFmt}{m}{{\color{green!30!black}\it #1}}
+
+\NewDocumentCommand{\ltEnd}{}{{\ltFmt{\tt end}}}
+\NewDocumentCommand{\ltSend}{o o m m}{
+	\ltFmt{\participant{#3}!\commChoice[#1][#2]{#4}}
+}
+\NewDocumentCommand{\ltReceive}{o o m m}{
+	\ltFmt{\participant{#3}?\commChoice[#1][#2]{#4}}
+}
+\NewDocumentCommand{\ltAct}{o o m m}{
+	\ltFmt{\participant{#3}\dagger\commChoice[#1][#2]{#4}}
+}
+
+\NewDocumentCommand{\ltRec}{m m}{
+\ltFmt{\mu \var{#1}. #2}
+}
+\NewDocumentCommand{\ltVar}{m}{
+\ltFmt{\var{#1}}
+}
+
+\NewDocumentCommand{\ltSet}{}{
+\mathbb{L}
+}

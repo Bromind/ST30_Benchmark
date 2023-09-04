@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage[landscape,lmargin=1cm,rmargin=1cm]{geometry}
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Travel Agency~\cite{HuSessionBased2008}}
+\date{}
+\begin{document}
+	\maketitle
+
+	Participants:
+	\begin{itemize}
+		\item C: Customer
+		\item A: Agency
+		\item S: Service
+	\end{itemize}
+
+Original version (with delegation)
+	$$
+	\gtRec{t}{
+		\gtComm{C}{A}{
+			{{Request}[String]{
+					\gtComm{A}{C}{
+						{{Price}[double]{
+								\gtComm{C}{A}{
+									{{Accept}{\gtComm{A}{S}{
+												{{Delegate}[?Address.!Date]{
+														\gtComm{C}{S}{
+															{{Address}[String]{
+																	\gtComm{S}{C}{
+																	{{Date}[Date]{\gtEnd}}
+																}
+															}}
+														}
+												}}
+									}}}
+									{{Reject}{\gtEnd}}
+									{{Repeat}{\gtVar{t}}}
+								}
+						}}
+					}
+			}}
+		}
+	}
+	$$
+
+Without delegation (notice that we have to add a message to $\participant{S}$
+in the $\label{Reject}$ branch, otherwise the branches can not be merged.
+
+	$$
+\gtRec{t}{
+	\gtComm{C}{A}{
+		{{Request}[String]{
+				\gtComm{A}{C}{
+					{{Price}[double]{
+							\gtComm{C}{A}{
+								{{Accept}{
+										\gtComm{C}{S}{
+											{{Address}[String]{
+													\gtComm{S}{C}{
+														{{Date}[Date]{\gtEnd}}
+													}
+											}}
+										}
+									}}
+								{{Reject}{\gtComm{C}{S}{
+											{{Quit}{\gtEnd}}
+								}}}
+								{{Repeat}{\gtVar{t}}}
+							}
+					}}
+				}
+		}}
+	}
+}
+$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

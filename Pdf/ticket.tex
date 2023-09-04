@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Ticket~\cite{BocchiMultiparty2013}}
+\date{}
+\begin{document}
+	\maketitle
+
+	Participants:
+	\begin{itemize}
+		\item C: Client
+		\item S: Server
+	\end{itemize}
+
+
+	$$
+	\gtComm{C}{S}{
+		{{Offer}[int]{
+				\gtComm{S}{C}{
+					{{Ok}[int]{\gtEnd}}
+					{{Ko}{\gtEnd}}
+				}
+		}}
+	}
+	$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

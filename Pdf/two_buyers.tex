@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[landscape, lmargin=1cm, rmargin=1cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Two buyers~\cite{HondaMultiparty2016}}
+\date{}
+
+\begin{document}
+	\maketitle
+
+	Participants:
+	\begin{itemize}
+		\item $B_1$: Buyer 1
+		\item $B_2$: Buyer 2
+		\item $S$: Seller
+	\end{itemize}
+
+	$$
+	\gtComm{B_1}{S}{
+		{{Title}[String]{
+				\gtComm{S}{B_1}{
+					{{Quote}[int]{
+							\gtComm{S}{B_2}{
+								{{Quote}[int]{
+										\gtComm{B_1}{B_2}{
+											{{Share}[int]{
+													\gtComm{B_2}{S}{
+														{{Ok}{
+																\gtComm{B_2}{S}{
+																	{{Address}[String]{
+																			\gtComm{S}{B_2}{{{Date}[String]{\gtEnd}}}
+																	}}
+																}
+														}}
+														{{Cancel}{\gtEnd}}
+													}
+											}}
+										}
+								}}
+							}
+					}}
+				}
+		}}
+	}
+	$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

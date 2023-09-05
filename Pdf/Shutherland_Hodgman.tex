@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[lmargin=1cm, rmargin=1cm, paperwidth=42cm]{geometry}
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Shutherland-Hodgman~\cite{NeykovaSession2018}}
+\date{}
+\begin{document}
+	\maketitle
+
+\paragraph{Remark.}
+This protocol has one choice where the destination is not the same across all
+branches. This may or may not be allowed depending on the specific formal
+variant of MPST you choose.
+
+	$$
+	\gtComm{P}{R}{
+		{{Plane}[\tuple{point, point, point, point}]{
+				\gtRec{t}{
+					\gtComm{P}{R}{
+						{{IsAbove}[point]{
+								\gtComm{R}{P}{
+									{{Res}[bool]{
+											\gtComm{P}{R}{
+												{{IsAbove}[point]{
+														\gtComm{R}{P}{
+															{{Res}[bool]{
+		\left\{\begin{aligned}
+		&\gtComm{P}{C}{
+			{{BothIn}[Point]{
+				\gtComm{P}{R}{
+					{{BothIn}{\gtVar{t}}}
+				}
+			}}
+		}\\
+		&\gtComm{P}{C}{
+			{{BothIn}[Point]{
+				\gtComm{P}{R}{
+					{{BothIn}{\gtVar{t}}}
+				}
+			}}
+		}\\
+		&\gtComm{P}{R}{
+			{{Intersect}[\tuple{Point, Point}]{
+					\gtComm{R}{P}{
+						{{Res}[point]{
+								\gtComm{P}{C}{
+									{{SecOut}[point]{\gtVar{t}}}
+									{{SecIn}[\tuple{point, point}]{\gtVar{t}}}
+								}
+						}}
+					}
+			}}
+		}
+																	\end{aligned}\right\}
+															}}
+														}
+												}}
+											}
+									}}
+								}
+						}}
+						{{Close}{
+								\gtComm{P}{C}{
+								{{Close}{\gtEnd}}
+							}
+						}}
+					}
+				}
+		}}
+	}
+	$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

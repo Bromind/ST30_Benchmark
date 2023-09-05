@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage[landscape, lmargin=1cm,rmargin=1cm]{geometry}
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Online Wallet~\cite{NeykovaSPY2013}}
+\date{}
+\begin{document}
+	\maketitle
+
+\paragraph{Remark.}
+This protocol uses $\gtComm{A}{C, S}{{{\ell}{\dots}}}$ to indicate that
+$\participant{A}$ sends the same message to both $\participant{C}$ and
+$\participant{S}$.
+
+	$$
+	\gtComm{C}{A}{
+		{{Login}[\tuple{string, string}]{
+				\gtComm{A}{C, S}{
+					{{Ok}{\gtRec{t}{
+								\gtComm{S}{C}{
+								{{Account}[\tuple{balance:int, overdraft:int}]{
+										\gtComm{C}{S}{
+											{{Pay}[\tuple{string,int}]{\gtVar{t}}}
+											{{Quit}{\gtEnd}}
+										}
+									}}
+								}
+					}}}
+					{{Fail}[string]{\gtEnd}}
+				}
+		}}
+	}
+	$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

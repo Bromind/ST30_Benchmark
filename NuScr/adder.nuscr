@@ -1,0 +1,18 @@
+
+global protocol Adder(role C, role S)
+{
+  rec t {
+    choice at S
+    {
+      ADD(int, int) from S to C;
+      RES(int) from C to S;
+      continue t;
+    }
+    or
+    {
+      BYE() from S to C;
+      BYE() from C to S;
+    }
+  }
+}
+

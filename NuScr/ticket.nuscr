@@ -1,0 +1,11 @@
+
+global protocol Ticket(role C, role S)
+{
+	Offer(int) from C to S;
+	choice at S {
+		Ok(int) from S to C;
+	} or {
+		Ko() from S to C;
+	}
+}
+

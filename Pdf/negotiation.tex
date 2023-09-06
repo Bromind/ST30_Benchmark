@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage[landscape,lmargin=1cm,rmargin=1cm,paperheight=40cm]{geometry}
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Negotiation~\cite{DemangeonNested2012}}
+\date{}
+\begin{document}
+	\maketitle
+
+	\paragraph{Remark.}
+	Originally, this protocol was presented to showcase nested protocols. Here,
+	we inline the protocol to fallback on more standard MPST.
+
+	Participants:
+	\begin{itemize}
+		\item $\participant{C}$: the client;
+		\item $\participant{I}$: an instrument the client wants to use;
+		\item $\participant{A}$: an agent that negotiate with the client the
+		conditions of use of the instrument.
+	\end{itemize}
+
+	$$
+	\gtComm{C}{A}{
+		{{Request}{
+				\gtComm{A}{I}{
+					{{Connect}{
+							\gtComm{I}{A}{
+								{{Available}{
+										\gtComm{A}{C}{
+											{{Ack}{
+	\gtComm{A}{C}{
+		{{Ask}[Terms]{
+				\gtRec{n}{
+					\gtComm{C}{A}{
+						{{Proposition}[Contract]{
+								\gtComm{A}{C}{
+									{{Accept}{
+											\gtRec{t}{
+												\gtComm{C}{I}{
+													{{Abort}{\gtEnd}}
+													{{Command}[Code]{
+															\gtComm{I}{C}{
+																{{Result}[Data]{\gtVar{t}}}
+															}
+													}}
+												}
+											}
+									}}
+									{{Counter}[Contract]{\gtVar{n}}}
+								}
+						}}
+					}
+				}
+		}}
+	}
+											}}
+										}
+								}}
+							}
+					}}
+				}
+		}}
+	}
+	$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

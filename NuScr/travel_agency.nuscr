@@ -1,0 +1,21 @@
+
+global protocol TravelAgency(role C, role A, role S)
+{
+	rec t {
+		Request(string) from C to A;
+		Price(double) from A to C;
+		choice at C {
+			Accept from C to A;
+			Address(string) from C to S;
+			Date(date) from S to C;
+		} or {
+			Reject from C to A;
+			Quit from C to S;
+		} or {
+			Repeat from C to A;
+			Ping from C to S;
+			continue t;
+		}
+	}
+}
+

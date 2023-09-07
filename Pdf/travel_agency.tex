@@ -47,8 +47,9 @@ Original version (with delegation)
 	}
 	$$
 
-Without delegation (notice that we have to add a message to $\participant{S}$
-in the $\label{Reject}$ branch, otherwise the branches can not be merged.
+Without delegation (notice that we have to add messages to $\participant{S}$
+in the $\label{Reject}$ and $\label{Repeat}$ branches, otherwise the branches
+can not be merged.
 
 	$$
 \gtRec{t}{
@@ -69,7 +70,10 @@ in the $\label{Reject}$ branch, otherwise the branches can not be merged.
 								{{Reject}{\gtComm{C}{S}{
 											{{Quit}{\gtEnd}}
 								}}}
-								{{Repeat}{\gtVar{t}}}
+								{{Repeat}{\gtComm{C}{S}{
+											{{Ping}{\gtVar{t}}}
+										}
+								}}
 							}
 					}}
 				}

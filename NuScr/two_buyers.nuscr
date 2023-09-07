@@ -1,0 +1,16 @@
+
+global protocol TwoBuyers(role Seller, role Buyer1, role Buyer2)
+{
+	Title(string) from Buyer1 to Seller;
+	Quote(int) from Seller to Buyer1;
+	Quote(int) from Seller to Buyer2;
+	Share(int) from Buyer1 to Buyer2;
+	choice at Buyer2 {
+		Ok from Buyer2 to Seller;
+		Address(string) from Buyer2 to Seller;
+		Date(string) from Seller to Buyer2;
+	} or {
+		Cancel from Buyer2 to Seller;
+	}
+}
+

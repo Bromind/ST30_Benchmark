@@ -12,9 +12,13 @@
 	\maketitle
 
 \paragraph{Remark.}
-This protocol has one choice where the destination is not the same across all
-branches. This may or may not be allowed depending on the specific formal
-variant of MPST you choose.
+Originally, this protocol has one choice where the destination is not the same
+across all branches (when choosing $\label{BothIn}$, $\label{BothOut}$ or
+$\label{Intersect}$). This may or may not be allowed depending on the specific
+formal variant of MPST you choose.
+
+In this benchmark, we reordered them so that the order is always
+$\gtComm{P}{R}{{{\ell}{\gtComm{P}{C}{{{\ell}{G}}}}}}$.
 
 	$$
 	\gtComm{P}{R}{
@@ -29,17 +33,17 @@ variant of MPST you choose.
 														\gtComm{R}{P}{
 															{{Res}[bool]{
 		\left\{\begin{aligned}
-		&\gtComm{P}{C}{
-			{{BothIn}[Point]{
-				\gtComm{P}{R}{
-					{{BothIn}{\gtVar{t}}}
+		&\gtComm{P}{R}{
+			{{BothIn}{
+				\gtComm{P}{C}{
+					{{BothIn}[Point]{\gtVar{t}}}
 				}
 			}}
 		}\\
-		&\gtComm{P}{C}{
-			{{BothIn}[Point]{
-				\gtComm{P}{R}{
-					{{BothIn}{\gtVar{t}}}
+		&\gtComm{P}{R}{
+			{{BothOut}{
+				\gtComm{P}{C}{
+					{{BothOut}[Point]{\gtVar{t}}}
 				}
 			}}
 		}\\

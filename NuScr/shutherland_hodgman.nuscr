@@ -1,0 +1,35 @@
+global protocol ShutherlandHodgman(role P, role R, role C)
+{
+	Plane(int, int, int, int) from P to R;
+	rec t {
+		choice at P {
+			IsAbove(point) from P to R;
+			Res(bool) from R to P;
+			IsAbove(point) from P to R;
+			Res(bool) from R to P;
+			choice at P {
+				BothIn() from P to R;
+				BothIn(point) from P to C;
+				continue t;
+			} or {
+				BothOut() from P to R;
+				BothOut() from P to C;
+				continue t;
+			} or {
+				Intersect(point, point) from P to R;
+				Res(point) from R to P;
+				choice at P {
+					SecOut(point) from P to C;
+					continue t;
+				} or {
+					SecIn(point, point) from P to C;
+					continue t;
+				}
+			}
+		} or {
+			Close from P to R;
+			Close from P to C;
+		}
+	}
+}
+

@@ -1,0 +1,21 @@
+global protocol OnlineWallet(role A, role C, role S)
+{
+	Login(string, string) from C to A;
+	choice at A {
+		Ok from A to C;
+		Ok from A to S;
+		rec t {
+			Account(int, int) from S to C;
+			choice at C {
+				Pay(string, int) from C to S;
+				continue t;
+			} or {
+				Quit from C to S;
+			}
+		}
+	} or {
+		Fail(string) from A to C;
+		Fail(string) from A to S;
+	}
+}
+

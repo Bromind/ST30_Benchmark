@@ -1,0 +1,11 @@
+
+global protocol Streaming(role DP, role KP, role K, role C)
+{
+	rec t {
+		d(bool) from DP to K;
+		k(bool) from KP to K;
+		c(bool) from K to C;
+		continue t;
+	}
+}
+

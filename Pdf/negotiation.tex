@@ -15,6 +15,10 @@
 	Originally, this protocol was presented to showcase nested protocols. Here,
 	we inline the protocol to fallback on more standard MPST.
 
+	In addition, here, to allow projection on $\participant{I}$, we add a
+	message from $\participant{A}$ to $\participant{I}$, after
+	$\lbl{Accept}$/$\lbl{Counter}$.
+
 	Participants:
 	\begin{itemize}
 		\item $\participant{C}$: the client;
@@ -39,18 +43,28 @@
 						{{Proposition}[Contract]{
 								\gtComm{A}{C}{
 									{{Accept}{
-											\gtRec{t}{
-												\gtComm{C}{I}{
-													{{Abort}{\gtEnd}}
-													{{Command}[Code]{
-															\gtComm{I}{C}{
-																{{Result}[Data]{\gtVar{t}}}
+											\gtComm{A}{I}{
+												{{Start}{
+														\gtRec{t}{
+															\gtComm{C}{I}{
+																{{Abort}{\gtEnd}}
+																{{Command}[Code]{
+																		\gtComm{I}{C}{
+																			{{Result}[Data]{\gtVar{t}}}
+																		}
+																}}
 															}
-													}}
-												}
+														}
+												}}
 											}
 									}}
-									{{Counter}[Contract]{\gtVar{n}}}
+									{{Counter}[Contract]{
+											\gtComm{A}{I}{
+												{{Wait}{
+													\gtVar{n}
+												}}
+											}
+									}}
 								}
 						}}
 					}

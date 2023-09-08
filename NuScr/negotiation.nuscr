@@ -1,0 +1,30 @@
+
+global protocol Adder(role C, role A, role I)
+{
+Request from C to A;
+Connect from A to I;
+Available from I to A;
+Ack from A to C;
+Ask(Terms) from A to C;
+	rec n {
+		Proposition(Contract) from C to A;
+		choice at A {
+			Accept from A to C;
+			Start from A to I;
+			rec t {
+				choice at C {
+					Abort from C to I;
+				} or {
+					Command(Code) from C to I;
+					Result(Data) from I to C;
+					continue t;
+				}
+			}
+		} or {
+			Counter(Contract) from A to C;
+			Wait from A to I;
+			continue n;
+		}
+	}
+}
+

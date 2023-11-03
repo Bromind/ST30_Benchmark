@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{MPST}
+
+\newcommand{\tuple}[1]{\langle #1\rangle}
+
+\title{Buyer/Seller~\cite{GayModular2010}}
+\date{}
+\begin{document}
+	\maketitle
+
+\paragraph{Remark.}
+This protocol is not to be confused with the \emph{two buyers} protocols.
+
+
+$$
+\gtRec{t}{
+\gtComm{B}{S}{
+	{{ReqQuote}[Product]{
+			\gtComm{S}{B}{
+				{{Price}[Int]{
+						\gtComm{S}{B}{
+							{{Quote}[Quote]{\gtVar{t}}}
+						}
+				}}
+			}
+	}}
+	{{AccQuote}[Quote]{
+			\gtComm{B}{S}{
+				{{Payment}[Int]{\gtVar{t}}}
+			}
+	}}
+	{{Quit}{\gtEnd}}
+}}
+$$
+
+	\bibliographystyle{plain}
+	\bibliography{db}
+\end{document}

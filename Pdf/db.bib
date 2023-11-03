@@ -139,3 +139,21 @@
 	urldate = {2023-05-22},
 	isbn = {978-3-642-32939-5 978-3-642-32940-1},
 }
+
+@inproceedings{GayModular2010,
+  title = {Modular Session Types for Distributed Object-Oriented Programming},
+  booktitle = {Proceedings of the 37th Annual {{ACM SIGPLAN-SIGACT}} Symposium on {{Principles}} of Programming Languages},
+  author = {Gay, Simon J. and Vasconcelos, Vasco T. and Ravara, Ant{\'o}nio and Gesbert, Nils and Caldeira, Alexandre Z.},
+  year = {2010},
+  month = jan,
+  series = {{{POPL}} '10},
+  pages = {299--312},
+  publisher = {{Association for Computing Machinery}},
+  address = {{New York, NY, USA}},
+  doi = {10.1145/1706299.1706335},
+  urldate = {2023-11-03},
+  abstract = {Session types allow communication protocols to be specified type-theoretically so that protocol implementations can be verified by static type-checking. We extend previous work on session types for distributed object-oriented languages in three ways. (1) We attach a session type to a class definition, to specify the possible sequences of method calls. (2) We allow a session type (protocol) implementation to be modularized , i.e. partitioned into separately-callable methods. (3) We treat session-typed communication channels as objects, integrating their session types with the session types of classes. The result is an elegant unification of communication channels and their session types, distributed object-oriented programming, and a form of typestates supporting non-uniform objects, i.e. objects that dynamically change the set of available methods. We define syntax, operational semantics, a sound type system, and a correct and complete type checking algorithm for a small distributed class-based object-oriented language. Static typing guarantees that both sequences of messages on channels, and sequences of method calls on objects, conform to type-theoretic specifications, thus ensuring type-safety. The language includes expected features of session types, such as delegation, and expected features of object-oriented programming, such as encapsulation of local state. We also describe a prototype implementation as an extension of Java.},
+  isbn = {978-1-60558-479-9},
+  keywords = {non-uniform method availability,object-oriented calculus,session types,typestates},
+  file = {/users/marsor/Zotero/storage/9XVMVQT3/Gay et al. - 2010 - Modular session types for distributed object-orien.pdf}
+}

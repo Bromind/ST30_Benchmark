@@ -47,10 +47,10 @@ async fn b(mut a_to_b: UnboundedReceiver<i32>,
 async fn c(mut b_to_c: UnboundedReceiver<GuessResult>,
 	c_to_b: UnboundedSender<i32>)
 	-> Result<(), Box<dyn Error>> {
-	let mut min = 0;
-	let mut max = 10000000; // both included
+	let mut min = i32::MIN;
+	let mut max = i32::MAX; // both included
 	loop {
-		let attempt = min + ((max - min) / 2);
+		let attempt = min/2 +  max/2;
 		c_to_b.unbounded_send(attempt)?;
 		let r = b_to_c.next().await.ok_or(ReceiveError::EmptyStream)?;
 		match r {

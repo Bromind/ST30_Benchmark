@@ -28,22 +28,44 @@ async fn b(mut a_to_b: UnboundedReceiver<i32>,
 	b_to_c: UnboundedSender<GuessResult>)
 	-> Result<(), Box<dyn Error>>
 {
-        let _n = a_to_b.next().await.ok_or(ReceiveError::EmptyStream)?;
-        let _x = c_to_b.next().await.ok_or(ReceiveError::EmptyStream)?;
-// Assuming it is correct
-	b_to_c.unbounded_send(GuessResult::Correct)?;
-        return Ok(())
+        let n = a_to_b.next().await.ok_or(ReceiveError::EmptyStream)?;
+	loop {
+		let x = c_to_b.next().await.ok_or(ReceiveError::EmptyStream)?;
+		if n > x {
+			b_to_c.unbounded_send(GuessResult::More)?;
+		}
+		if n < x {
+			b_to_c.unbounded_send(GuessResult::Less)?;
+		}
+		if n == x {
+			b_to_c.unbounded_send(GuessResult::Correct)?;
+			return Ok(())
+		}
+	}
 }
 
 async fn c(mut b_to_c: UnboundedReceiver<GuessResult>,
 	c_to_b: UnboundedSender<i32>)
 	-> Result<(), Box<dyn Error>> {
-        c_to_b.unbounded_send(10)?;
-	let r = b_to_c.next().await.ok_or(ReceiveError::EmptyStream)?;
-        match r {
-            GuessResult::Correct => return Ok(()),
-            _ => panic!(),
-        }
+	let mut min = 0;
+	let mut max = 10000000; // both included
+	loop {
+		let attempt = min + ((max - min) / 2);
+		c_to_b.unbounded_send(attempt)?;
+		let r = b_to_c.next().await.ok_or(ReceiveError::EmptyStream)?;
+		match r {
+			GuessResult::Correct => {
+				println!("Final guess {}", attempt);
+				return Ok(())
+			},
+			GuessResult::Less => {
+				max = attempt - 1;
+			},
+			GuessResult::More => {
+				min = attempt + 1;
+			}
+		}
+	}
 }
 
 fn main() {
